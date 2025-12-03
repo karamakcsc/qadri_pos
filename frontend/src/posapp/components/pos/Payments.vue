@@ -1039,6 +1039,11 @@ export default {
 			console.log("sales_person:", this.sales_person);
 			console.log("items:", this.invoice_doc?.items);
 
+			if (this.invoice_doc?.is_return || this.invoice_doc?.return_against) {
+				console.log("Return invoice detected — bypassing salesperson validation.");
+				return false; 
+			}
+
 			if (this.invoice_doc && Array.isArray(this.invoice_doc.items)) {
 				const missing = this.invoice_doc.items.some(
 					(it) => !it.custom_sales_person || it.custom_sales_person === ""
